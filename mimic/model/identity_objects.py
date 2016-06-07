@@ -140,22 +140,22 @@ class EndpointTemplateStore(object):
 
     optional_mapping = [
         ('enabled', 'enabled_key', False),
-        ('publicURL', 'publicURL', u""),
-        ('internalURL', 'internalURL', u""),
-        ('adminURL', 'adminURL', u""),
-        ('RAX-AUTH:tenantAlias', 'tenantAlias', "%tenant_id%"),
-        ('versionId', 'versionId', u""),
-        ('versionInfo', 'versionInfo', u""),
-        ('versionList', 'versionList', u"")
+        ('publicURL', 'public_url', u""),
+        ('internalURL', 'internal_url', u""),
+        ('adminURL', 'admin_url', u""),
+        ('RAX-AUTH:tenantAlias', 'tenant_alias', "%tenant_id%"),
+        ('versionId', 'version_id', u""),
+        ('versionInfo', 'version_info', u""),
+        ('versionList', 'version_list', u"")
     ]
 
     tenant_mapping = [
         ('id', 'id_key'),
         ('region', 'region_key'),
         ('type', 'type_key'),
-        ('publicURL', 'publicURL'),
-        ('internalURL', 'internalURL'),
-        ('adminURL', 'adminURL'),
+        ('publicURL', 'public_url'),
+        ('internalURL', 'internal_url'),
+        ('adminURL', 'admin_url'),
     ]
 
     def __init__(self, template_dict=None):
@@ -172,13 +172,13 @@ class EndpointTemplateStore(object):
         self.type_key = None
         self.name_key = None
         self.enabled_key = None
-        self.publicURL = None
-        self.internalURL = None
-        self.adminURL = None
-        self.tenantAlias = None
-        self.versionId = None
-        self.versionInfo = None
-        self.versionList = None
+        self.public_url = None
+        self.internal_url = None
+        self.admin_url = None
+        self.tenant_alias = None
+        self.version_id = None
+        self.version_info = None
+        self.version_list = None
 
         if self._template_data is not None:
             self.deserialize(self._template_data)
@@ -302,9 +302,9 @@ class ExternalApiStore(object):
                         tenant_id,
                         endpoint_template.region_key,
                         endpoint_template.id_key,
-                        endpoint_template.versionId,
+                        endpoint_template.version_id,
                         external=True,
-                        complete_url=endpoint_template.publicURL
+                        complete_url=endpoint_template.public_url
                     )
                 )
         return endpoints
@@ -497,7 +497,7 @@ class ExternalApiStore(object):
         """
         Return the URI for the service in the given region.
 
-        Note: This only returns the publicURL at present to match
+        Note: This only returns the public URL at present to match
             the rest of Mimic's implementation. Supporting multiple
             URL types (public vs snet vs admin) is left for another
             feature addition.
@@ -508,7 +508,7 @@ class ExternalApiStore(object):
         for _, endpoint_template in self.endpoint_templates.items():
             if endpoint_template.region_key == region or region == '':
                 # since Mimic only utilizes the public URL
-                return endpoint_template.publicURL
+                return endpoint_template.public_url
 
         raise IndexError(
             "region '" + region + "' is not supported as an external API"

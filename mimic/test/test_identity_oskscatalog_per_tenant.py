@@ -140,12 +140,15 @@ class TestIdentityOSKSCatalogTenantAdminEndpointTemplatesList(SynchronousTestCas
 
     def test_multiple_external_apis(self):
         """
+        Validate that if there are multiple external APIs present and enabled
+        that they all show up in the template listing.
         """
         api_list = [self.eeapi]
         for _ in range(10):
             api_list.append(
                 make_example_external_api(
                     self,
+                    set_enabled=True,
                     name=self.eeapi_name + text_type(uuid.uuid4()),
                     service_type='service-' + text_type(uuid.uuid4())
                 )

@@ -50,13 +50,13 @@ class EndpointTemplateInstanceTests(SynchronousTestCase):
 
         validate_attributes = [
             'enabled_key',
-            'publicURL',
-            'internalURL',
-            'adminURL',
-            'tenantAlias',
-            'versionId',
-            'versionInfo',
-            'versionList'
+            'public_url',
+            'internal_url',
+            'admin_url',
+            'tenant_alias',
+            'version_id',
+            'version_info',
+            'version_list',
         ]
         for epts_attribute in validate_attributes:
             actual_value = getattr(epts, epts_attribute)
@@ -83,13 +83,13 @@ class EndpointTemplateInstanceTests(SynchronousTestCase):
         self.assertIsNone(epts.type_key)
         self.assertIsNone(epts.name_key)
         self.assertIsNone(epts.enabled_key)
-        self.assertIsNone(epts.publicURL)
-        self.assertIsNone(epts.internalURL)
-        self.assertIsNone(epts.adminURL)
-        self.assertIsNone(epts.tenantAlias)
-        self.assertIsNone(epts.versionId)
-        self.assertIsNone(epts.versionInfo)
-        self.assertIsNone(epts.versionList)
+        self.assertIsNone(epts.public_url)
+        self.assertIsNone(epts.internal_url)
+        self.assertIsNone(epts.admin_url)
+        self.assertIsNone(epts.tenant_alias)
+        self.assertIsNone(epts.version_id)
+        self.assertIsNone(epts.version_info)
+        self.assertIsNone(epts.version_list)
 
     def test_basic_with_minimal_dict(self):
         data = {
