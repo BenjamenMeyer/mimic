@@ -15,12 +15,16 @@ from json import dumps
 from mimic.imimic import IAPIMock
 from twisted.plugin import IPlugin
 from twisted.web.http import CREATED, ACCEPTED, OK
+#from twisted.logger import Logger
 
 from mimic.catalog import Entry
 from mimic.catalog import Endpoint
 from mimic.rest.mimicapp import MimicApp
 from twisted.web.resource import NoResource
 from zope.interface import implementer
+from mimic.resource import log
+
+#log = Logger("mimic").info
 
 
 def normal_tenant_id_to_crazy_mosso_id(normal_tenant_id):
@@ -198,9 +202,20 @@ class SwiftTenantInRegion(object):
         Create or update an object in a container.
         """
         request.setResponseCode(201)
+
+        log("Has Container {0}: {1}".format(
+            container_name,
+            container_name in self.containers))
+
         container = self.containers[container_name]
         content_type = (request.requestHeaders
                         .getRawHeaders(b'content-type')[0].decode("ascii"))
+
+        log("Container {0} has object {1}: {2}".format(
+            container_name,
+            object_name,
+            object_name in container.objects))
+
         container.objects[object_name] = Object(
             name=object_name, data=request.content.read(),
             content_type=content_type
