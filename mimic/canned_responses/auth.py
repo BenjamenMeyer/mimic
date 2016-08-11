@@ -55,7 +55,12 @@ def impersonator_user_role(id, name):
             {"id": "10000005",
              "serviceId": "test-d4614b87411e141fe8109099bc4f",
              "description": "Role to access Customer service as an Admin",
-             "name": "customer:admin"}],
+             "name": "customer:admin"},
+            {"id": "10000006",
+             "serviceId": "test-eabb70a0e702a4626977c331d5c4",
+             "description": "Service admin role for Cloud Backup access. Assign only to service users",
+             "name": "cloudbackup:service-admin"},
+        ],
         "name": name
     }
 
@@ -87,6 +92,10 @@ def get_token(tenant_id,
                     yield {
                         "region": endpoint.region,
                         "tenantId": endpoint.tenant_id,
+                        "internalURL": endpoint.url_with_prefix(
+                            prefix_for_endpoint(endpoint),
+                            internal_url=True
+                        ),
                         "publicURL": endpoint.url_with_prefix(
                             prefix_for_endpoint(endpoint)
                         ),
@@ -135,6 +144,10 @@ def get_endpoints(tenant_id, entry_generator, prefix_for_endpoint):
             result.append({
                 "region": endpoint.region,
                 "tenantId": endpoint.tenant_id,
+                "internalURL": endpoint.url_with_prefix(
+                    prefix_for_endpoint(endpoint),
+                    internal_url=True
+                ),
                 "publicURL": endpoint.url_with_prefix(
                     prefix_for_endpoint(endpoint)
                 ),
