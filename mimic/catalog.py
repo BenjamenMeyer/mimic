@@ -4,6 +4,8 @@ Classes which represent the objects within the service catalog.
 
 from __future__ import absolute_import, division, unicode_literals
 
+from six import text_type
+
 __all__ = ("Endpoint", "Entry")
 
 
@@ -69,7 +71,7 @@ class Endpoint(object):
         else:
             # internal_url is ignored as anything hosted internally in
             # mimic will always use the same URL.
-            postfix = self.tenant_id
+            postfix = text_type(self.tenant_id)
             segments = [uri_prefix.rstrip(u"/")]
             if self.prefix is not None:
                 segments.append(self.prefix)
