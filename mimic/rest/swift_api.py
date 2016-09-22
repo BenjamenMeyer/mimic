@@ -48,7 +48,7 @@ def normal_tenant_id_to_crazy_mosso_id(normal_tenant_id):
     :rtype: unicode
     """
     full_namespace = (u"https://github.com/rackerlabs/mimic/ns/tenant/"
-                      + normal_tenant_id)
+                      + text_type(normal_tenant_id))
     if bytes is str:
         full_namespace = full_namespace.encode("ascii")
     uuid = uuid5(NAMESPACE_URL, full_namespace)
