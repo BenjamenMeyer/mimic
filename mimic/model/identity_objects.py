@@ -5,6 +5,7 @@ Model objects for the Identity mimic.
 from __future__ import absolute_import, division, unicode_literals
 
 import attr
+from six import text_type
 
 from zope.interface import implementer
 
@@ -204,7 +205,7 @@ class EndpointTemplateStore(object):
         if value_to_replace is None:
             value_to_replace = '%tenant_id%'
 
-        return url.replace(value_to_replace, tenant_id)
+        return url.replace(value_to_replace, text_type(tenant_id))
 
     def serialize(self, tenant_id=None):
         """
